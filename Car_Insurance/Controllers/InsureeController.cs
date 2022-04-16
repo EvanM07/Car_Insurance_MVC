@@ -88,6 +88,60 @@ namespace Car_Insurance.Controllers
                 db.Entry(table).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
+
+
+                var quote = 50;
+
+                                                        //DateTime aboveAge = table.DateOfBirth - DateTime.Now;
+                                                        //DateTime Age1 = table.DateOfBirth;
+                                                        //var L_age = Age1 - DateTime.Now;
+
+                
+                var userInput = Convert.ToDateTime(table.DateOfBirth);
+                var agePerson = DateTime.Now - userInput;
+                //if ( userInput > DateTime(DateTime.) {}
+
+
+
+
+
+
+                string carMake = "Porsche";
+                string carModel = "911 Carrera";
+
+                if (table.CarMake == carMake)
+                {
+                    var add = 25;
+                    add += quote;
+                }
+
+                if (table.CarMake == carMake && table.CarModel == carModel)
+                {
+                    var add2 = 50;
+                    add2 += quote;
+                }
+
+                string amountOf = Convert.ToString(table.SpeedingTickets);
+                foreach (int x  in amountOf)
+                {
+                    var add3 = 10;
+                    add3 += quote;
+                }
+
+                 
+                if (table.DUI == true)
+                {
+                    var add4 = 25;
+                    add4 += quote;
+
+                    //decimal percentOfadd4 = Convert.ToDecimal(add4);
+                    //percentOfadd4 = 25%
+
+                };
+
+
+
             }
             return View(table);
         }
@@ -127,18 +181,5 @@ namespace Car_Insurance.Controllers
             base.Dispose(disposing);
         }
         
-        public void baseAmount()
-        {
-            int sAmount = 50;
-
-        }
-
-        public bool underAge ()
-        {
-            if ()
-
-
-
-        }
     }
 }
