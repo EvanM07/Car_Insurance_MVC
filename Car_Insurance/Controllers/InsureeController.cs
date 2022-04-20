@@ -91,18 +91,26 @@ namespace Car_Insurance.Controllers
 
 
 
-                var quote = 50;
+                table.Quote = 50;
 
-                                                        //DateTime aboveAge = table.DateOfBirth - DateTime.Now;
-                                                        //DateTime Age1 = table.DateOfBirth;
-                                                        //var L_age = Age1 - DateTime.Now;
+                var today = DateTime.Today;
+                var eighteenAgo = today.AddYears(-18);
+                var twentyFiveAgo = today.AddYears(-25);
 
-                
-                var userInput = Convert.ToDateTime(table.DateOfBirth);
-                var agePerson = DateTime.Now - userInput;
-                //if ( userInput > DateTime(DateTime.) {}
+                if (table.DateOfBirth > eighteenAgo)
+                {
+                    table.Quote += 50;
+                }
 
+                if (table.DateOfBirth > twentyFiveAgo)
+                {
+                    table.Quote += 25;
+                }
 
+                if (table.CarYear < 2000 || table.CarYear > 2015 )
+                {
+                    table.Quote += 25;
+                }
 
 
 
@@ -112,38 +120,35 @@ namespace Car_Insurance.Controllers
 
                 if (table.CarMake == carMake)
                 {
-                    var add = 25;
-                    add += quote;
+                    table.Quote += 25;
                 }
 
                 if (table.CarMake == carMake && table.CarModel == carModel)
                 {
-                    var add2 = 50;
-                    add2 += quote;
+                    table.Quote += 50;
                 }
 
                 string amountOf = Convert.ToString(table.SpeedingTickets);
-                foreach (int x  in amountOf)
+                foreach (int x in amountOf)
                 {
-                    var add3 = 10;
-                    add3 += quote;
+                    table.Quote += 10;
                 }
+                //table.Quote += 10 * table.SpeedingTickets;   /// second version of the the above foreach statement.
 
-                 
-                if (table.DUI == true)
+
+                if ( table.DUI)
                 {
-                    var add4 = 25;
-                    add4 += quote;
-
-                    //decimal percentOfadd4 = Convert.ToDecimal(add4);
-                    //percentOfadd4 = 25%
-
-                };
+                    table.Quote = decimal.Multiply(table.Quote, 1.25m);
+                }
+                if (table.CoverageType)
+                {
+                    table.Quote = decimal.Multiply(table.Quote, 1.5m);
+                }
 
 
 
             }
-            return View(table);
+            return View(table.Quote);
         }
 
         // GET: Insuree/Delete/5

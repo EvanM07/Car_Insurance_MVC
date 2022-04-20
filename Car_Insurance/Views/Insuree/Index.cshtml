@@ -42,7 +42,9 @@
             @Html.DisplayNameFor(model => model.CoverageType)
         </th>
 
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.Quote)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -81,9 +83,7 @@
             @Html.DisplayFor(modelItem => item.Quote)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
