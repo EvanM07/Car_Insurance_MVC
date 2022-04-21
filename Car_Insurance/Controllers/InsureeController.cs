@@ -86,8 +86,7 @@ namespace Car_Insurance.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(table).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
 
 
 
@@ -112,9 +111,6 @@ namespace Car_Insurance.Controllers
                     table.Quote += 25;
                 }
 
-
-
-
                 string carMake = "Porsche";
                 string carModel = "911 Carrera";
 
@@ -128,12 +124,12 @@ namespace Car_Insurance.Controllers
                     table.Quote += 50;
                 }
 
-                string amountOf = Convert.ToString(table.SpeedingTickets);
-                foreach (int x in amountOf)
-                {
-                    table.Quote += 10;
-                }
-                //table.Quote += 10 * table.SpeedingTickets;   /// second version of the the above foreach statement.
+                //string amountOf = Convert.ToString(table.SpeedingTickets);
+                //foreach (int x in amountOf)
+                //{
+                //    table.Quote += 10;
+                //}
+                table.Quote += 10 * table.SpeedingTickets;   /// second version of the the above foreach statement.
 
 
                 if ( table.DUI)
@@ -144,11 +140,12 @@ namespace Car_Insurance.Controllers
                 {
                     table.Quote = decimal.Multiply(table.Quote, 1.5m);
                 }
-
-
+                db.Tables.Add(table);
+                db.SaveChanges();
+                return RedirectToAction("Index");
 
             }
-            return View(table.Quote);
+            return View(table);
         }
 
         // GET: Insuree/Delete/5
