@@ -1,13 +1,16 @@
 ﻿@model IEnumerable<Car_Insurance.Models.Table>
 
 @{
-    ViewBag.Title = "Admin Page ";
+    ViewBag.Title = "Admin Page";
 }
 
 <h2> </h2>
 
 <p>
     @Html.ActionLink("Create New", "Create", "Delete")
+
+    @Html.ActionLink("Back to Index", "Index")
+
 </p>
 <table class="table">
     <tr>

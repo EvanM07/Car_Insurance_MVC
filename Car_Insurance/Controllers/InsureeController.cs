@@ -19,8 +19,11 @@ namespace Car_Insurance.Controllers
         public ActionResult Index()
         {
             return View(db.Tables.ToList());
-        } 
-
+        }
+        public ActionResult Admin()
+        {
+            return View(db.Tables.ToList());
+        }
 
 
         // GET: Insuree/Details/5
@@ -53,6 +56,7 @@ namespace Car_Insurance.Controllers
         {
             if (ModelState.IsValid)
             {
+                table.Quote = insQuote(table);
                 db.Tables.Add(table);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -85,64 +89,10 @@ namespace Car_Insurance.Controllers
         {
             if (ModelState.IsValid)
             {
+                table.Quote = insQuote(table);
                 db.Entry(table).State = EntityState.Modified;
-
-
-
-
-                table.Quote = 50;
-
-                var today = DateTime.Today;
-                var eighteenAgo = today.AddYears(-18);
-                var twentyFiveAgo = today.AddYears(-25);
-
-                if (table.DateOfBirth > eighteenAgo)
-                {
-                    table.Quote += 50;
-                }
-
-                if (table.DateOfBirth > twentyFiveAgo)
-                {
-                    table.Quote += 25;
-                }
-
-                if (table.CarYear < 2000 || table.CarYear > 2015 )
-                {
-                    table.Quote += 25;
-                }
-
-                string carMake = "Porsche";
-                string carModel = "911 Carrera";
-
-                if (table.CarMake == carMake)
-                {
-                    table.Quote += 25;
-                }
-
-                if (table.CarMake == carMake && table.CarModel == carModel)
-                {
-                    table.Quote += 50;
-                }
-
-                //string amountOf = Convert.ToString(table.SpeedingTickets);
-                //foreach (int x in amountOf)
-                //{
-                //    table.Quote += 10;
-                //}
-                table.Quote += 10 * table.SpeedingTickets;   /// second version of the the above foreach statement.
-
-
-                if ( table.DUI)
-                {
-                    table.Quote = decimal.Multiply(table.Quote, 1.25m);
-                }
-                if (table.CoverageType)
-                {
-                    table.Quote = decimal.Multiply(table.Quote, 1.5m);
-                }
-                db.Tables.Add(table);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Admin");
 
             }
             return View(table);
@@ -183,5 +133,59 @@ namespace Car_Insurance.Controllers
             base.Dispose(disposing);
         }
         
+        public decimal insQuote (Table table)
+        {
+            table.Quote = 50;
+
+            var today = DateTime.Today;
+            var eighteenAgo = today.AddYears(-18);
+            var twentyFiveAgo = today.AddYears(-25);
+
+            if (table.DateOfBirth > eighteenAgo)
+            {
+                table.Quote += 50;
+            }
+
+            if (table.DateOfBirth > twentyFiveAgo)
+            {
+                table.Quote += 25;
+            }
+
+            if (table.CarYear < 2000 || table.CarYear > 2015)
+            {
+                table.Quote += 25;
+            }
+
+            string carMake = "Porsche";
+            string carModel = "911 Carrera";
+
+            if (table.CarMake == carMake)
+            {
+                table.Quote += 25;
+            }
+
+            if (table.CarMake == carMake && table.CarModel == carModel)
+            {
+                table.Quote += 50;
+            }
+
+            //string amountOf = Convert.ToString(table.SpeedingTickets);
+            //foreach (int x in amountOf)
+            //{
+            //    table.Quote += 10;
+            //}
+            table.Quote += 10 * table.SpeedingTickets;   /// second version of the the above foreach statement.
+
+
+            if (table.DUI)
+            {
+                table.Quote = decimal.Multiply(table.Quote, 1.25m);
+            }
+            if (table.CoverageType)
+            {
+                table.Quote = decimal.Multiply(table.Quote, 1.5m);
+            }
+            return table.Quote;
+        }
     }
 }

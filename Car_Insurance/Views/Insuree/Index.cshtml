@@ -1,13 +1,12 @@
 ﻿@model IEnumerable<Car_Insurance.Models.Table>
 
-@{
-    ViewBag.Title = "Index";
-}
 
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Back to Admin ", "Admin")
+
 </p>
 <table class="table">
     <tr>
@@ -89,3 +88,5 @@
 }
 
 </table>
+
+
